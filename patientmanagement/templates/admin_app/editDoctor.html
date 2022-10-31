@@ -1,0 +1,37 @@
+{% extends 'admin_app/base.html' %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <p class="h4">Update Doctor Information</p>
+                <form method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Date of Birth</label>
+                   {{form.date_of_birth|add_class:"form-control"}}
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">National ID Number</label>
+                   {{form.national_ID_number|add_class:"form-control"}}
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Passport Number</label>
+                   {{form.passport_number|add_class:"form-control"}}
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Registration Number BMDC</label>
+                   {{form.registration_number_BMDC|add_class:"form-control"}}
+                  </div>
+                  <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Update</button>
+                   </div>
+                  
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock body_block %}

@@ -1,0 +1,155 @@
+{% extends 'patient_app/base.html' %}
+
+{% block body_block %}
+<!-- page direction end -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Date</p>
+                    <h6 class="mb-2">{{last_appointment.appointment_d.appointment_date}}</h6>
+                    <h6 class="mb-2">Time: 
+                        {% if last_appointment.appointment_time %}
+                            {{last_appointment.appointment_time}}
+                        {% else %}
+                           Will given Soon
+                        {% endif %}
+                    </h6>
+                    <h6 class="mb-2 text-danger"> 
+                        {% if last_appointment.appointment_d.cancel_status %}
+                            {{last_appointment.appointment_d.cancel_message}}
+                        {% endif %}
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-house-medical fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Address</p>
+                    <h6 class="mb-2">Room-{{last_appointment.appointment_d.room_number}}</h6>
+                    <h6 class="mb-2">{{last_appointment.appointment_d.hospital_name}}</h6>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- Patient name,id,age, blood pressuer start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Appointment History(Pending)</h6>
+        </div>
+        <div class="table-responsive">
+            {% if appointment_list_pending %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                
+                <thead>
+                    <tr class="text-dark bg-primary">
+                        <th scope="col">Date</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Speciality</th>
+                        <th scope="col">Room No</th>
+                        <th scope="col">Serial</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for appointments in appointment_list_pending %}
+                <tbody>
+                    <tr>
+                        <td>{{appointments.appointment_d.appointment_date}}</td>
+                        <td>{{appointments.doctor_d.doctor.title}} {{appointments.doctor_d.profile.fullName}}</td>
+                        <td>{{appointments.doctor_d.doctor.specialist}}</td>
+                        <td>{{appointments.appointment_d.room_number}} </td>
+                        <td>{{appointments.serial_number}}</td>
+                        <td> 
+                            {% if appointments.appointment_time %}
+
+                            {{appointments.appointment_time}} </td>
+
+                            {% else %}
+                                Will given Soon
+                            
+                            {% endif %}
+                            
+                        <td>
+                            <a class="btn btn-sm btn-primary" href="{% url 'patient_app:appointment_details' appointments.id %}"><i class="fa-solid fa-eye fa text-white me-2"></i>Details</a>
+
+                            {% if appointments.appointment_d.cancel_status %}
+                            <a class="btn btn-sm btn-danger ms-2" href="#"><i class="fa-solid fa-rectangle-xmark"></i></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p class="h5">You have no pending appointment</p>
+            
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- Patient name,id,age, blood pressuer start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Online Appointment History(Pending)</h6>
+        </div>
+        <div class="table-responsive">
+            {% if online_appointment_list %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                
+                <thead>
+                    <tr class="text-dark bg-primary">
+                        <th scope="col">Date</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Speciality</th>
+                        <th scope="col">Serial</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for appointments in online_appointment_list %}
+                <tbody>
+                    <tr>
+                        <td>{{appointments.online_appointment_d.online_appointment_date}}</td>
+                        <td>{{appointments.online_doctor_d.doctor.title}} {{appointments.online_doctor_d.profile.fullName}}</td>
+                        <td>{{appointments.online_doctor_d.doctor.specialist}}</td>
+                        <td>{{appointments.online_serial_number}}</td>
+                        <td> 
+                            {% if appointments.appointment_time %}
+
+                            {{appointments.appointment_time}} </td>
+
+                            {% else %}
+                                Will given Soon
+                            
+                            {% endif %}
+                            
+                        <td>
+                            <a class="btn btn-sm btn-primary" href="{% url 'patient_app:online_appointment_details' appointments.id %}"><i class="fa-solid fa-eye fa text-white me-2"></i>Details</a>
+
+                            {% if appointments.online_appointment_d.online_cancel_status %}
+                            <a class="btn btn-sm btn-danger ms-2" href="#"><i class="fa-solid fa-rectangle-xmark"></i></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p class="h5">You have no pending appointment</p>
+            
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock body_block %}

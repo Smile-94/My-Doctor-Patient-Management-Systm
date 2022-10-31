@@ -1,0 +1,42 @@
+{% extends 'patient_app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <form method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                  <div class="mb-3">
+                    {{form.age|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.village|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.post_office|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.police_station|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.district|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.post_code|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.marital_status|as_crispy_field}}
+                  </div>
+                  
+                   <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                   </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock body_block %}

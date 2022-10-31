@@ -1,0 +1,37 @@
+{% extends 'home_app/base.html' %}
+{% load static %}
+
+{% block body_block %}
+<!-- news section start -->
+<div class="news_section layout_padding">
+   <div class="container">
+      <h1 class="health_taital">Why choose 24hr home care</h1>
+      <p class="health_text">labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+      <div class="news_section_2 layout_padding">
+         <div class="row">
+            <div class="col-lg-4 col-sm-6">
+               <div class="box_main">
+                  <div class="icon_1"><img src="{% static 'home_app/images/admin-icon-2.png' %}" style="width: 100px"></div>
+                  <a  href="{% url 'login_app:admin_arena' %}"><h4 class="daily_text">Admin</h4></a>
+                  
+               </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+               <div class="box_main active">
+                  <div class="icon_1"><img src="{% static 'home_app/images/icon-2.png' %}"></div>
+                  <a  href="{% url 'login_app:doctor_arena' %}"><h4 class="daily_text">Doctor</h4></a>
+               </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+               <div class="box_main">
+                  <div class="icon_1"><img src="{% static 'home_app/images/icon-4.png' %}"></div>
+                  <a  href="{% url 'login_app:patient_arena' %}"><h4 class="daily_text">Patient</h4></a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- news section end -->
+
+{% endblock body_block %}

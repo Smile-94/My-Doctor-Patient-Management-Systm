@@ -1,0 +1,47 @@
+{% extends 'doctor_app/base.html' %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Online Pending Patient List</h6>
+        </div>
+        {% if pending_patient %}
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark bg-primary">
+                        <th scope="col-5">Date</th>
+                        <th scope="col-1">Patient Name</th>
+                        <th scope="col-1">Serial</th>
+                        <th scope="col-1">Time Slot</th>
+                        <th scope="col-1">Time</th>
+                        <th scope="col-4">Give Time</th>
+                    </tr>
+                </thead>
+                {% for patient in pending_patient %}
+                <tbody>
+                    <tr>
+                        <td>{{patient.online_appointment_d.online_appointment_date}}</td>
+                        <td>{{patient.online_patient_d.profile.fullName}}</td>
+                        <td>{{patient.online_serial_number}}</td>
+                        <td>{{patient.online_appointment_d.online_time_slot}}</td>
+                        <td>{{patient.online_appointment_time}}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{% url 'doctor_app:online_pending_pat_details' patient.id %}" role="button">Details</a>
+                        </td>
+                    </tr>     
+        </tbody>
+        {% endfor %}
+                
+            </table>
+        </div>
+        {% else %}
+        <p class="h6">No pending Patient</p>
+        {% endif %}
+       
+
+    </div>
+</div>
+
+{% endblock body_block %}

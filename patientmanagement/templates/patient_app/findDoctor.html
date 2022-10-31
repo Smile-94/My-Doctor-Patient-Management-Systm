@@ -1,0 +1,43 @@
+{% extends 'patient_app/base.html' %}
+
+{% block body_block %}
+         
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4 d-flex justify-content-center">
+        <div class="col-sm-4 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-Start p-4 ps-0 doctor-catagory">
+                {% if doctor_catagory %}
+                <nav class="navbar bg-light navbar-light">
+                    <div class="navbar-nav w-100">
+                        <a href="{% url 'patient_app:find_doctor' %}" class="nav-item nav-link active"><i class="fa fa-briefcase-medical me-2"></i>Doctors Catagory</a>
+                        {% for catagory in doctor_catagory %}
+                        <a href="{% url 'patient_app:find_catagory_doctor' catagory.id %}" class="nav-item nav-link"><i class="fa-solid fa-stethoscope text-primary"></i>{{catagory.doctor_catagoy}}</a>
+                        {% endfor %}   
+                    </div>
+                </nav>
+                {% endif %}
+                
+            </div>
+        </div>
+        <div class="col-sm-8 col-xl-8">
+            {% if doctor_list %}
+            {% for doctors in doctor_list %}
+            <div class="bg-light rounded d-flex justify-content-Start p-4 mb-4">
+                <img src="/media/{{doctors.profile.user_photo}}" class="img-thumbnail " style="width: 150px; height: 150px;" alt="...">
+                <div class="ms-3">
+                    <h6 class="mb-2">{{doctors.doctor.title}} {{doctors.profile.fullName}}</h6>
+                    <p class="mb-2">{{doctors.doctor.doctor_sort_description}} </p>
+                    <p class="mb-2">{{doctors.doctor.specialist}}</p>
+                    <p class="mb-2">Green Land Hospital,Dhaka</p>
+                    <div class=" d-flex">
+                        <a class="btn btn-primary me-4" href="{% url 'patient_app:make_appointment' doctors.id %}" role="button"><i class="fa-solid fa-square-plus me-2"></i>Make Appointment</a>
+                        {% comment %} <a class="btn btn-primary" href="#" role="button"><i class="fa-solid fa-book-medical me-2"></i>More Details</a> {% endcomment %}
+                    </div> 
+                </div>
+            </div>
+            {% endfor %}
+            
+            {% endif %}
+        </div>
+            
+{% endblock body_block %}

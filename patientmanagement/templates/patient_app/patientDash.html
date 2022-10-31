@@ -1,0 +1,115 @@
+{% extends 'patient_app/base.html' %}
+
+{% block body_block %}
+<!-- Patient name,id,age, blood pressuer start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Date</p>
+                    <h6 class="mb-0">{{prescription_date.prescription_for.appointment_d.appointment_date}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Next Meeting</p>
+                    <h6 class="mb-0">{{next_metting.next_metting_date}}</h6>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa fa-mars-and-venus fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Sex</p>
+                    <h6 class="mb-0">{{request.user.profile.gender}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Patient name,id,age, blood pressuer start end -->
+
+
+<!-- Patient name,id,age, blood pressuer start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa-solid fa-file-signature fa-3x text-primary"></i>
+                <i class="fa-solid fa-input-numeric"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Patient Name</p>
+                    <h6 class="mb-0">{{request.user.profile.fullName}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa fa-calendar-day fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Patient Age</p>
+                    <h6 class="mb-0">{{patient_info.age}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa fa-temperature-arrow-up fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Blood Pressure</p>
+                    <h6 class="mb-0">{{next_metting.blood_pressure}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Patient name,id,age, blood pressuer start end -->
+
+<!-- Prescription Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Prescription</h6>
+        </div>
+
+        {% if medicine_list %}
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark bg-primary">
+                        <th scope="col-5">Sl</th>
+                        <th scope="col-5">Mdicine Name(mg)</th>
+                        <th scope="col-1">Morning</th>
+                        <th scope="col-1">Lunch</th>
+                        <th scope="col-1">Dinner</th>
+                        <th scope="col-4">Comment</th>
+                    </tr>
+                </thead>
+                {% for medicine in medicine_list %}
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}} </td>
+                        <td>{{medicine.medicine_name}}</td>
+                        <td>{{medicine.morning_time}}</td>
+                        <td>{{medicine.lunch_time}}</td>
+                        <td>{{medicine.dinner_time}}</td>
+                        <td>{{medicine.comments}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!-- Rrescription End -->
+
+
+{% endblock body_block %}

@@ -1,0 +1,46 @@
+{% extends 'patient_app/base.html' %}
+
+{% block body_block %}
+ <!-- Patient name,id,age, blood pressuer start -->
+ <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Date</p>
+                    <h6 class="mb-2">{{appointment_details.appointment_date}}</h6>
+                    <h6 class="mb-2">{{appointment_details.time_slot}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-house-medical fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Address</p>
+                    <h6 class="mb-2">Room-{{appointment_details.room_number}}</h6>
+                    <h6 class="mb-2">{{appointment_details.hospital_name}}</h6>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- Patient name,id,age, blood pressuer start end -->
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-8 col-xl-12">
+        <div class="bg-light rounded d-flex justify-content-Start p-4 mb-4">
+            <img src="/media/{{doctor_details.user_photo}}" class="img-thumbnail " style="width: 250px; height: 250px;" alt="...">
+            <div class="ms-3">
+                <h6 class="mb-2">{{doctor_info.title}} {{doctor_details.fullName}}</h6>
+                <p class="mb-2">{{doctor_info.doctor_sort_description}}</p>
+                <p class="mb-2">{{doctor_info.specialist}}</p>
+                <p class="mb-2">Green Land Hospital,Dhaka</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body_block %}

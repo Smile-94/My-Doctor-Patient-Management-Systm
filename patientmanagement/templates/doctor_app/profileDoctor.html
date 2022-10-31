@@ -1,0 +1,156 @@
+{% extends 'doctor_app/base.html' %}
+
+{% block body_block %}
+<div class="container-fluid pt-2 px-4 d-flex align-item-center justify-content-center">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-2">
+                <img src="/media/{{request.user.profile.user_photo}}" class="img-thumbnail" style="width: 350px; height: 200px;" alt="...">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-2 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa-solid fa-file-signature fa-3x text-primary"></i>
+                <i class="fa-solid fa-input-numeric"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Doctor Name</p>
+                    <h6 class="mb-0">{{doctor_info.title}} {{request.user.profile.fullName}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa fa-calendar-day fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Date of Birth</p>
+                    <h6 class="mb-0">{{doctor_info.date_of_birth}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa fa-mars-and-venus fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Sex</p>
+                    <h6 class="mb-0">{{request.user.profile.gender}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa-solid fa-user-doctor fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Specialist</p>
+                    <h6 class="mb-0">{{doctor_info.specialist}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sale & Revenue End -->
+<!-- phone and email start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-square-plus fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Doctor Type</p>
+                        <h6 class="mb-0">{{doctor_info.doctor_type}}</h6>
+                    </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-square-phone fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Contact Number</p>
+                    <h6 class="mb-0">{{request.user.profile.user_phone}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-square-envelope fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Email</p>
+                    <h6 class="mb-0">{{request.user.email}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- phone and email end -->
+<!-- phone and email start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-id-card fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">National ID Number</p>
+                        <h6 class="mb-0">{{doctor_info.national_ID_number}}</h6>
+                    </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-passport fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Passport Number</p>
+                    <h6 class="mb-0">{{doctor_info.passport_number}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-registered fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Registration Number (BMDC)</p>
+                    <h6 class="mb-0">{{doctor_info.registration_number_BMDC}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-2 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-12 p-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-2">
+                  <blockquote class="blockquote">
+                    <p> {{doctor_info.doctor_sort_description}}</p>
+                  </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- phone and email end -->
+
+<!-- Address start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-address-book fa-2x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Doctor Address</p>
+                </div>
+            </div>
+            <div class="border border p-2 rounded">
+                <h6 class="mb-2 text-muted">Village/Road:<small class="text-dark"> {{doctor_info.road}} </small></h6>
+                <h6 class="mb-2 text-muted">Post-office/Sector/Block: <small class="text-dark"> {{doctor_info.sector}} </small></h6>
+                <h6 class="mb-2 text-muted">City: <small class="text-dark"> {{doctor_info.city}} </small></h6>
+                <h6 class="mb-2 text-muted">Post Code: <small class="text-dark"> {{doctor_info.postcode}} </small></h6>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Address End -->
+
+{% endblock body_block %}

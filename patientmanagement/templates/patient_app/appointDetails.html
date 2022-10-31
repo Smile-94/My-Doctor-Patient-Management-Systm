@@ -1,0 +1,61 @@
+{% extends 'patient_app/base.html' %}
+
+{% block body_block %}
+ <!-- Patient name,id,age, blood pressuer start -->
+ <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Date</p>
+                    <h6 class="mb-2">{{details.appointment_d.appointment_date}}</h6>
+                    <h6 class="mb-2">{{details.appointment_d.time_slot}},
+                        {% if details.appointment_time %}
+                        {{details.appointment_time}}
+                        {% else %}
+                        Time will given soon
+                        {% endif %}
+                       </h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-house-medical fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Address</p>
+                    <h6 class="mb-2">Room-{{details.appointment_d.room_number}}</h6>
+                    <h6 class="mb-2">{{details.appointment_d.hospital_name}}</h6>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- Patient name,id,age, blood pressuer start end -->
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-8 col-xl-12">
+        <div class="bg-light rounded d-flex justify-content-Start p-4 mb-4">
+            <img src="/media/{{details.doctor_d.profile.user_photo}}" class="img-thumbnail " style="width: 250px; height: 250px;" alt="...">
+            <div class="ms-3">
+                <p class="h5">Doctor Details:</p>
+                <h6 class="mb-2">{{details.doctor_d.doctor.title}} {{details.doctor_d.profile.fullName}}</h6>
+                <p class="mb-2">{{details.doctor_d.doctor.doctor_sort_description}}</p>
+                <p class="mb-2">{{details.doctor_d.doctor.specialist}}</p>
+                <h4 class="mb-2 text-danger mt-4"> 
+                    {% if details.appointment_d.cancel_status %}
+                        {{details.appointment_d.cancel_message}}
+                    {% endif %}
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center align-item-center">
+    <a class="btn btn-primary btn-lg" href="{% url 'patient_app:appointment_history' %}" role="button"><i class="fa-solid fa-circle-left me-3"></i>Back</a>
+  </div>
+
+{% endblock body_block %}

@@ -1,0 +1,67 @@
+{% extends 'doctor_app/base.html' %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="mb-0">Prescribe Reports</h6>
+        </div>
+        <div class="container-fluid">
+            <form  method="POST">{% csrf_token %}
+                <div class="row bg-info text-dark py-2 mb-4">
+                    <div class="col-4"><strong>Report Name</strong></div>
+                    <div class="col-6"><strong>Description</strong></div>
+                    <div class="col"><strong>Action</strong></div>
+                  </div>
+                <div class="row">
+                    <div class="col-4">{{reports_form.online_report_name |add_class:"form-control"}} </div>
+                    <div class="col-6">{{reports_form.online_report_details |add_class:"form-control"}} </div>
+                    <div class="col"><input class="btn btn-primary px-4" type="submit" value="Add"></div>
+                  </div>
+              </form>
+          </div>
+    </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Report's List</h6>
+        </div>
+            {% if report_list %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="text-dark bg-info">
+                    <tr class="text-dark">
+                        <th scope="col-1">Sl</th>
+                        <th scope="col-4">Report Name</th>
+                        <th scope="col-6">Description</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for report in report_list %}
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{report.online_report_name}}</td>
+                        <td>{{report.online_report_details}}</td>
+                        <td class>
+                            <a class="btn btn-sm btn-success" href="{% url 'doctor_app:edit_online_report' report.id  appointment.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="btn btn-sm btn-danger" href="{% url 'doctor_app:delete_online_report' report.id  appointment.id %}"><i class="fa-solid fa-trash"></i></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            
+            {% endif %}
+            <div class="mt-3">
+                <a class="btn btn-primary" href="{% url 'doctor_app:prescribe_online_patient' %}" role="button">Save</a>  
+              </div>
+            
+    </div>
+</div>
+
+
+
+{% endblock body_block %}

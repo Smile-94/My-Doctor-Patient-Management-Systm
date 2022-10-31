@@ -1,0 +1,180 @@
+{% extends 'admin_app/base.html' %}
+
+{% block body_block %}
+    <!-- Chart Start -->
+ <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Todays Patient</h6>
+                <canvas id="todaysPatient"></canvas>
+                <script>
+                const ctxs = document.getElementById('todaysPatient').getContext('2d');
+                const daPatient = new Chart(ctxs, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Morning Patient','Afternoon Patient','Evening Patient','Cancel Patient' ],
+                        datasets: [{
+                            label: 'Patient',
+                            data: [{{today_morning_patient}},{{today_afternoon_patient}},{{today_evening_patient}},{{today_cancel_patient}}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132,)',
+                                'rgba(54, 162, 235,)',
+                                'rgba(255, 206, 86,)',
+                                'rgba(75, 192, 192,)',
+                                'rgba(153, 102, 255,)',
+                                'rgba(255, 159, 64,)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Today's Prescribed Patient</h6>
+                <canvas id="todayPrescribed"></canvas>
+                <script>
+                const conts = document.getElementById('todayPrescribed').getContext('2d');
+                const prescribedChart = new Chart(conts, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Morning Prescribed', 'Afternoon Prescribed', 'Evening Prescribed', 'Not Prescribed',],
+                        datasets: [{
+                            label: 'Patient',
+                            data: [{{today_morning_prescribed}}, {{today_afternoon_prescribed}}, {{today_evening_prescribed}},{{today_not_prescribed}}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132,)',
+                                'rgba(54, 162, 235,)',
+                                'rgba(255, 206, 86,)',
+                                'rgba(75, 192, 192,)',
+                                'rgba(153, 102, 255,)',
+                                'rgba(255, 159, 64,)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Total Prescribed Patient</h6>
+                <canvas id="totalPrescribed"></canvas>
+                <script>
+                const contexss = document.getElementById('totalPrescribed').getContext('2d');
+                const totalPrescribe = new Chart(contexss, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Morning Prescribed', 'Afternoon Prescribed', 'Evening Prescribed', 'Not Prescribed',],
+                        datasets: [{
+                            label: 'Prescription',
+                            data: [{{total_morning_prescribed}}, {{total_afternoon_prescribed}}, {{total_evening_prescribed}},{{total_not_prescribed}}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132,)',
+                                'rgba(54, 162, 235,)',
+                                'rgba(255, 206, 86,)',
+                                'rgba(75, 192, 192,)',
+                                'rgba(153, 102, 255,)',
+                                'rgba(255, 159, 64,)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Total Prescribed Patient</h6>
+                <canvas id="pieChart"></canvas>
+                <script>
+                const piceChar = document.getElementById('pieChart').getContext('2d');
+                const pie = new Chart(piceChar, {
+                    type: 'pie',
+                    data: {
+                        labels: [
+                                'Prescibed %',
+                                'Patient Absence %',
+                                'Appointment Cancel %'
+                            ],
+                            datasets: [{
+                                label: 'My First Dataset',
+                                data: [{{prescribed_percentage}}, {{not_prescribed_percentage}}, {{cencel_percentage}}],
+                                backgroundColor: [
+                                'rgb(255, 99, 82)',
+                                'rgb(544, 162, 235)',
+                                'rgb(250, 205, 186)'
+                                ],
+                                hoverOffset: 4
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Chart End -->
+
+
+{% endblock body_block %}

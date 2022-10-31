@@ -1,0 +1,80 @@
+{% extends 'doctor_app/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="mb-0">Prescribe Medicine</h6>
+        </div>
+        <div class="container-fluid">
+            <form  method="POST">{% csrf_token %}
+                <div class="row bg-info text-dark py-2 mb-4">
+                    <div class="col-4"><strong>Medicine Name(Mg)</strong></div>
+                    <div class="col-1"><strong>Morning</strong></div>
+                    <div class="col-1"><strong>Lunch</strong></div>
+                    <div class="col-1"><strong>Dinner</strong></div>
+                    <div class="col"><strong>Comments</strong></div>
+                    <div class="col-2"><strong>Action</strong></div>
+                  </div>
+                <div class="row">
+                    <div class="col-4">{{form.medicine_name |add_class:"form-control"}} </div>
+                    <div class="col-1">{{form.morning_time |add_class:"form-control"}} </div>
+                    <div class="col-1">{{form.lunch_time |add_class:"form-control"}}</div>
+                    <div class="col-1">{{form.dinner_time |add_class:"form-control"}}</div>
+                    <div class="col-3">{{form.comments |add_class:"form-control"}}</div>
+                    <div class="col"><input class="btn btn-primary px-4" type="submit" value="Add"></div>
+                  </div>
+              </form>
+          </div>
+    </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Medicine List</h6>
+        </div>
+            {% if medicine_list %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="text-dark bg-info">
+                    <tr class="text-dark">
+                        <th scope="col-1">Serial</th>
+                        <th scope="col-4">Medicine Name</th>
+                        <th scope="col-1">Morning</th>
+                        <th scope="col-1">Lunch</th>
+                        <th scope="col-1">Dinner</th>
+                        <th scope="col-3">Comments</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for medicine in medicine_list %}
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{medicine.medicine_name}}</td>
+                        <td>{{medicine.morning_time}}</td>
+                        <td>{{medicine.lunch_time}}</td>
+                        <td>{{medicine.dinner_time}}</td>
+                        <td>{{medicine.comments}}</td>
+                        <td class>
+                            <a class="btn btn-sm btn-success" href="{% url 'doctor_app:editi_medicine' medicine.id pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="btn btn-sm btn-danger" href="{% url 'doctor_app:delete_medicine' medicine.id pk %}"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+                
+            </table>
+            
+            {% endif %}
+
+            <div class="mb-2 d-flex align-items-start mt-3">
+                <a class="btn btn-primary" href="{% url 'doctor_app:online_report_form' pk %}" role="button">Next</a>   
+              </div>     
+    </div>
+</div>
+
+
+{% endblock body_block %}

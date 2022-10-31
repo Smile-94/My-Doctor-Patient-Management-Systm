@@ -1,0 +1,43 @@
+{% extends 'login_app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block body_block %}
+
+<!-- Sing in  Form -->
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="{% static 'login_app/login/images/signin-image.jpg' %}" alt="sing up image"></figure>
+            </div>
+
+            <div class="signin-form">
+                <h2 class="form-title">Admin Info</h2>
+                <form method="POST" class="register-form" id="login-form" enctype='multipart/form-data'>{% csrf_token %}
+                    <div class="form-group">
+                        <p>Full Name</p> 
+                        {{form.fullName| add_class:"form-control"}}
+                    </div>
+                    <div class="form-group">
+                        <p>Gender</p>
+                        {{form.gender |add_class:"form-control"}}    
+                    </div>
+                    <div class="form-group">
+                        <p>Phone Number</p>
+                        {{form.user_phone|add_class:"form-control"}}
+                    </div>
+                    <div class="form-group">
+                        <p>Profile Photo</p>
+                        {{form.user_photo|add_class:"form-control"}}
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="signin" id="signin" class="form-submit" value="Save"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body_block %}

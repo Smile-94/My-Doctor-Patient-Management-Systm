@@ -1,0 +1,43 @@
+{% extends 'admin_app/base.html' %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Delete Catagory </h6>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light text-center rounded p-4">
+                        <div class="table-responsive">
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">Catagory Name</th>
+                                        <th scope="col">Added Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{catagory.doctor_catagoy}}</td>
+                                        <td>{{catagory.created_date}}</td>
+                                    </tr>
+                                </tbody>    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <form method='POST'> {% csrf_token %}   
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a class="btn btn-primary" href="{% url 'admin_app:add_catagory' %}" role="button">Back To Catagory</a>
+                </form>
+            </div>
+            <div class="col">
+             
+            </div>
+          </div>
+        
+        </div>
+</div>
+{% endblock body_block %}

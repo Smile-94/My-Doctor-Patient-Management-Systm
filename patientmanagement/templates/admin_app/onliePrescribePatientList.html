@@ -1,0 +1,46 @@
+{% extends 'admin_app/base.html' %}
+
+{% block body_block %}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Prescribed Patient List</h6>
+            <a href="">Show All</a>
+        </div>
+        <div class="table-responsive">
+            {% if prescribed_patient %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="bg-info">
+                    <tr class="text-dark">
+                        <th scope="col">Sl</th>
+                        <th scope="col">Patient Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Sex</th>  
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Prescribed Date</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for patient in prescribed_patient %}
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{patient.online_patient_d.profile.fullName}}</td>
+                        <td>{{patient.online_patient_d.patient_info.age}}</td>
+                        <td>{{patient.online_patient_d.profile.gender}}</td>
+                        <td>{{patient.online_doctor_d.doctor.title}} {{patient.doctor_d.profile.fullName}}</td>
+                        <td>{{patient.online_appointment_d.online_appointment_date}}</td>
+                        <td class>
+                            <a class="btn btn-sm btn-success" href="{% url 'admin_app:online_prescribed_details' patient.id %}"><i class="fa-solid fa-eye me-2"></i>Details</a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+                
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body_block %}

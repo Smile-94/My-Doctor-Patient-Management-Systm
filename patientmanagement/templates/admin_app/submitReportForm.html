@@ -1,0 +1,78 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    {% if test_report %}
+    {% for report in test_report  %}
+    <div class="col-sm-6 col-xl-4">
+        <div class="bg-white rounded d-flex align-items-center justify-content-start p-4">
+            <i class="fa-solid fa-microscope fa-2x text-primary"></i>
+            <div class="ms-3">
+                <p class="mb-2">Test Name</p>
+                <h6 class="mb-0">{{report.report_name}}</h6>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="mb-0">Upload Prescribed Report</h6>
+        </div>
+        <div class="container-fluid">
+            <form  method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                <div class="row bg-info text-dark py-2 mb-4">
+                    <div class="col-6"><strong>Report Name(Mg)</strong></div>
+                    <div class="col"><strong>Upload File</strong></div>
+                    <div class="col-1"><strong>Action</strong></div>
+                  </div>
+                <div class="row">
+                    <div class="col-6">{{form.report_file_name |add_class:"form-control"}} </div>
+                    <div class="col">{{form.report_file |add_class:"form-control"}} </div>
+                    <div class="col-1"><input class="btn btn-primary" type="submit" value="Add"></div>
+                  </div>
+              </form>
+          </div>
+    </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Report File List</h6>
+        </div>
+            {% if report_file %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="text-dark bg-info">
+                    <tr class="text-dark">
+                        <th scope="col">Report Name</th>
+                        <th scope="col-2">Report File</th>
+                        <th scope="col-1">Action</th>
+                    </tr>
+                </thead>
+                {% for report in report_file %}
+                <tbody>
+                    <tr>
+                        <td>{{report.report_file_name}}</td>
+                        <td><a class="btn btn-primary" href="{{report.report_file.url}}" role="button"><i class="fa-solid fa-file-arrow-down"></i></a></td>
+                        <td class>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="btn btn-sm btn-danger" href="#"><i class="fa-solid fa-trash"></i></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+                
+            </table>
+            
+            {% endif %}
+            <div class="mb-2 d-flex align-items-start mt-3">
+                <a class="btn btn-primary" href="{% url 'admin_app:patient_wating_report' %}" role="button">Done</a>   
+            </div>  
+    </div>
+</div>
+
+
+{% endblock body_block %}

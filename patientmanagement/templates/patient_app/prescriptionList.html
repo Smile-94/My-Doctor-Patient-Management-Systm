@@ -1,0 +1,48 @@
+{% extends 'patient_app/base.html' %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Prescription Lis</h6>
+        </div>
+        <div class="table-responsive">
+            {% if prescription_list %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                
+                <thead>
+                    <tr class="text-dark bg-primary">
+                        <th scope="col">Date</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Speciality</th>
+                        <th scope="col">Room No</th>
+                        <th scope="col">Serial</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for prescription in prescription_list %}
+                <tbody>
+                    <tr>
+                        <td>{{prescription.appointment_d.appointment_date}}</td>
+                        <td>{{prescription.doctor_d.doctor.title}} {{prescription.doctor_d.profile.fullName}}</td>
+                        <td>{{prescription.doctor_d.doctor.specialist}}</td>
+                        <td>{{prescription.appointment_d.room_number}} </td>
+                        <td>{{prescription.serial_number}}</td>
+                        <td> {{prescription.appointment_time}} </td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" href="{% url 'patient_app:prescription_details' prescription.id %}"><i class="fa-solid fa-eye fa text-white me-2"></i>Details</a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p class="h5">You have no prescription</p>
+            
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock body_block %}

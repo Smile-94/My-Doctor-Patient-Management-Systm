@@ -1,0 +1,180 @@
+{% extends 'admin_app/base.html' %}
+
+{% block body_block %}
+ <!-- Chart Start -->
+ <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Doctors by Catagory</h6>
+                <canvas id="myChart"></canvas>
+                <script>
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [ {% for catagory in catagories %} '{{catagory.doctor_catagoy}}', {% endfor %} ],
+                        datasets: [{
+                            label: 'Number of doctor',
+                            data: [{% for doctor in number_of_doctor %} {{doctor}}, {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132,)',
+                                'rgba(54, 162, 235,)',
+                                'rgba(255, 206, 86,)',
+                                'rgba(75, 192, 192,)',
+                                'rgba(153, 102, 255,)',
+                                'rgba(255, 159, 64,)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Today's Appointment</h6>
+                <canvas id="patient"></canvas>
+                <script>
+                const contex = document.getElementById('patient').getContext('2d');
+                const patientChart = new Chart(contex, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Morning Appointment', 'Afternoon Appointment', 'Evening Appointment', 'Cancel Appointment',],
+                        datasets: [{
+                            label: 'Todays Appointment',
+                            data: [{{morning_appointment}}, {{afternoon_appointment}}, {{evening_appointment}},{{cancel_appointment}}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132,)',
+                                'rgba(54, 162, 235,)',
+                                'rgba(255, 206, 86,)',
+                                'rgba(75, 192, 192,)',
+                                'rgba(153, 102, 255,)',
+                                'rgba(255, 159, 64,)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Total Appointment</h6>
+                <canvas id="doctor"></canvas>
+                <script>
+                const contexs = document.getElementById('doctor').getContext('2d');
+                const doctorChart = new Chart(contexs, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Morning Appointment', 'Afternoon Appointment', 'Evening Appointment', 'Cancel Appointment',],
+                        datasets: [{
+                            label: 'Appointment',
+                            data: [{{total_morning_appointment}}, {{total_afternoon_appointment}}, {{total_evening_appointment}},{{total_cancel_appointment}}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132,)',
+                                'rgba(54, 162, 235,)',
+                                'rgba(255, 206, 86,)',
+                                'rgba(75, 192, 192,)',
+                                'rgba(153, 102, 255,)',
+                                'rgba(255, 159, 64,)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Appointment Analysis</h6>
+                <canvas id="AppointChart"></canvas>
+                <script>
+                const appoinChar = document.getElementById('AppointChart').getContext('2d');
+                const appoin = new Chart(appoinChar, {
+                    type: 'pie',
+                    data: {
+                        labels: [
+                                'Morning %',
+                                'Afternoon %',
+                                'Evening %',
+                                'Cancel %',
+                            ],
+                            datasets: [{
+                                label: 'My First Dataset',
+                                data: [{{morning_appoint_percen}}, {{afternoon_appoint_percen}}, {{evening_appoint_percen}},{{cancel_appoint_percen}}],
+                                backgroundColor: [
+                                'rgb(255, 99, 82)',
+                                'rgb(544, 162, 235)',
+                                'rgb(250, 205, 186)',
+                                'rgb(240, 225, 86)',
+                                ],
+                                hoverOffset: 4
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Chart End -->
+{% endblock body_block %}

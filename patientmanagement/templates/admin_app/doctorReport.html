@@ -1,0 +1,48 @@
+{% extends 'admin_app/base.html' %}
+
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Doctors List</h6>
+        </div>
+        {% if doctor_list %}
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">sl</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Sex</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Specialist</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for doctor in doctor_list %}
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{doctor.user.doctor.title}} {{doctor.fullName}}</td>
+                        <td>{{doctor.user_phone}}</td>
+                        <td>{{doctor.gender}}</td>
+                        <td>{{doctor.user.email}} </td>
+                        <td>{{doctor.user.doctor.specialist}} </td>
+                        <td class>
+                            <a class="btn btn-sm btn-primary" href="{% url 'admin_app:doctor_report_details' doctor.id %}"><i class="fa-solid fa-eye me-2"></i>Reports</a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <h6 class="mb-0">No Doctors Avaliable</h6>
+        {% endif %}
+       
+    </div>
+</div>
+
+{% endblock body_block %}

@@ -1,0 +1,40 @@
+{% extends 'admin_app/base.html' %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">All Appointment List List</h6>
+        </div>
+        {% if all_appointment %}
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="bg-info">
+                    <tr class="text-dark">
+                        <th scope="col">sl</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Time Slot</th>
+                        <th scope="col">Room Number</th>
+                        <th scope="col">Patients</th>
+                    </tr>
+                </thead>
+                {% for appointment in all_appointment %}
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{appointment.appoint_user.doctor.title}} {{appointment.appoint_user.profile.fullName}}</td>
+                        <td>{{appointment.time_slot}}</td>
+                        <td>{{appointment.room_number}}</td>
+                        <td>{{appointment.number_of_patient}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <h6 class="mb-0">No Doctors Pending</h6>
+        {% endif %}
+       
+    </div>
+</div>
+{% endblock body_block %}

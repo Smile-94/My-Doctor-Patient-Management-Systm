@@ -1,0 +1,215 @@
+{% extends 'patient_app/base.html' %}
+
+
+{% block body_block %}
+ <!-- prescription start  -->
+ <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa fa-user-doctor fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <h6 class="mb-2">{{doctor_details.prescription_for.doctor_d.doctor.title}} {{doctor_details.prescription_for.doctor_d.profile.fullName}} </h6>
+                    <p class="mb-2">{{doctor_details.prescription_for.doctor_d.doctor.specialist}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Date</p>
+                    <h6 class="mb-0">{{doctor_details.prescription_for.appointment_d.appointment_date}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Next Meeting</p>
+                    <h6 class="mb-0">{{next_meeting.next_metting_date}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-2">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-mars-and-venus fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Sex</p>
+                    <h6 class="mb-0">{{request.user.profile.gender}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa-solid fa-file-signature fa-3x text-primary"></i>
+                <i class="fa-solid fa-input-numeric"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Patient Name</p>
+                    <h6 class="mb-0">{{request.user.profile.fullName}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa fa-calendar-day fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Patient Age</p>
+                    <h6 class="mb-0">{{patient_info.age}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa fa-temperature-arrow-up fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Blood Pressure</p>
+                    <h6 class="mb-0">{{next_meeting.blood_pressure}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Medicine List</h6>
+        </div>
+        {% if medicine_list %}
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                
+                <thead>
+                    <tr class="text-dark bg-primary">
+                        <th scope="col-5">Sl</th>
+                        <th scope="col-5">Mdicine Name(mg)</th>
+                        <th scope="col-1">Morning</th>
+                        <th scope="col-1">Lunch</th>
+                        <th scope="col-1">Dinner</th>
+                        <th scope="col-4">Comments</th>
+                    </tr>
+                </thead>
+                {% for medicine in medicine_list %}
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{medicine.medicine_name}}</td>
+                        <td>{{medicine.morning_time}}</td>
+                        <td>{{medicine.lunch_time}}</td>
+                        <td>{{medicine.dinner_time}}</td>
+                        <td>{{medicine.comments}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="col-sm-12 col-xl-12 pt-4 px-4">
+    <div class="bg-primary rounded h-100 p-4">
+        <h6 class="mb-4">Symptom,Reports,Suggestions</h6>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                        aria-expanded="true" aria-controls="flush-collapseOne">
+                        Symptom
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                    aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body bg-white">
+                       {{symptom.symptoms}}
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                        aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Reports
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                    aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="container-fluid px-4">
+                            {% if reports_list %}
+                            <div class="row g-4">
+                                {% for report in reports_list %}
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="bg-white rounded d-flex align-items-center justify-content-start p-4">
+                                        <i class="fa-solid fa-microscope fa-2x text-primary"></i>
+                                        <div class="ms-3">
+                                            <p class="mb-2">Test Name</p>
+                                            <h6 class="mb-0">{{report.report_name}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endfor %}  
+                            </div>  
+                            {% endif %}
+                            {% if report_file %}
+                            <table class="table text-start align-middle table-bordered table-hover mt-4">
+                                <thead class="text-dark bg-info">
+                                    <tr class="text-dark">
+                                        <th scope="col">Report Name</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Report File</th>
+                                    </tr>
+                                </thead>
+                                {% for report in report_file %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{report.report_file_name}}</td>
+                                        <td>{{report.report_date}}</td>
+                                        <td><a class="btn btn-primary" href="{{report.report_file.url}}" target="_blank" role="button"><i class="fa-solid fa-file-arrow-down"></i></a></td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                                
+                            </table>
+                            {% else %}
+                            <p class="h5">Report will submit soon</p>
+                            
+                            {% endif %}
+                                 
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                        aria-expanded="false" aria-controls="flush-collapseThree">
+                        Suggestions
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse"
+                    aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body bg-white">
+                        {{symptom.suggestions}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-6 col-lx-6 pt-4 p-4">
+    <div class="bg-light d-flex justify-content-center align-content-center p-4">
+        <a class="btn btn-primary" href="#" role="button"><i class="fa-solid fa-cloud-arrow-down pe-3"></i>Download Prescription</a>
+    </div>
+</div>
+<!-- prescription end  -->
+{% endblock body_block %}

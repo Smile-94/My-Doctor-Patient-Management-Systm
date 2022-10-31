@@ -1,0 +1,25 @@
+{% extends 'patient_app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<!-- Patient name,id,age, blood pressuer start end -->
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-8 col-xl-12">
+        <div class="bg-light rounded d-flex justify-content-Start p-4 mb-4">
+            <img src="{% static 'patient_app/img/card.jpg' %}" class="img-thumbnail " style="width: 300px; height: 250px;" alt="...">
+            <div class="ms-3">
+                <p class="h5">Refund Policy:</p>
+                <h6 class="mb-2 text-danger mt-4">After Confirm Your Payment You won't your money back</h6>
+                <form method='POST'> {% csrf_token %}
+                    <div class="mb-3">
+                        {{form.payment_status|add_class:"form-check-input"}}
+                        <label class="form-check-label" for="flexRadioDefault1">Confirm Payment</label>
+                      </div>
+                      <input class="btn btn-primary" type="submit" value="Make Payment">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body_block %}

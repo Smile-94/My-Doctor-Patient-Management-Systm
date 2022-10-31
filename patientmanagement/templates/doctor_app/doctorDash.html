@@ -1,0 +1,272 @@
+{% extends 'doctor_app/base.html' %}
+
+{% block body_block %}
+<!-- Patient name,id,age, blood pressuer start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-4 ">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Todays Pending Patient</p>
+                    {% if todays_ptient_count %}
+                    <h6 class="mb-0">{{todays_ptient_count}} </h6>
+                    {% else %}
+                    <h6 class="mb-0">0 </h6>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Pending Patient</p>
+                    <h6 class="mb-0">{{total_pending}}</h6>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <i class="fa fa-mars-and-venus fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Patient</p>
+                    <h6 class="mb-0">{{total_patient}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Patient name,id,age, blood pressuer start end -->
+
+
+<!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Pending Patinent(Today)</h6>
+        </div>
+        <div class="container-fluid pb-4">
+            <div class="d-flex align-items-center justify-content-sart ps-0">
+                <div class="pe-4">
+                    <p>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#morningSlot" aria-expanded="false" aria-controls="collapseWidthExample">
+                         Morning(9.00-1.00)
+                        </button>
+                      </p>
+                </div >
+                <div class="pe-4">
+                    <p>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#lunchSlot" aria-expanded="false" aria-controls="collapseWidthExample">
+                          Afternoon(4.00pm-6.00pm)
+                        </button>
+                      </p>
+                </div>
+                <div class="pe-4">
+                    <p>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#evening" aria-expanded="false" aria-controls="collapseWidthExample">
+                          Evening(7.30pm-8.30pm)
+                        </button>
+                      </p>
+                </div> 
+            </div>
+                <div>
+                    <div class="collapse collapse-horizontal" id="morningSlot">
+                      <div>
+                        <div class="table-responsive">
+                            {% if morning_patient %}
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead class="text-dark bg-info">
+                                    <tr class="text-dark">
+                                        <th scope="col">Serial</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Sex</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Phone No</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                {% for patient in morning_patient %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{patient.serial_number}}</td>
+                                        <td>{{patient.patient_d.profile.fullName}}</td>
+                                        <td>{{patient.patient_d.patient_info.age}}</td>
+                                        <td>{{patient.patient_d.profile.gender}}</td>
+                                        <td>
+                                            {% if patient.appointment_time %}
+                                            {{patient.appointment_time}}
+                                            {% else %}
+                                                Give Time
+                                            {% endif %}
+                                            
+                                        </td>
+                                        <td>{{patient.patient_d.profile.user_phone}}</td>
+                                        <td class>
+                                            <a class="btn btn-sm btn-success" href="{% url 'doctor_app:symptoms_form' patient.id %}"><i class="fa-solid fa-capsules pe-2"></i>Pescribe</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                                
+                            </table>
+                            {% else %}
+                            <p class="h5">Morning slot has no patient's</p>
+                            {% endif %}
+                            
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div >
+                    <div class="collapse collapse-horizontal" id="lunchSlot">
+                      <div>
+                        <div class="table-responsive">
+                            {% if afternoon_patient %}
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead class="text-dark bg-info">
+                                    <tr class="text-dark">
+                                        <th scope="col">Serial</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Sex</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Phone No</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                {% for patient in afternoon_patient %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{patient.serial_number}}</td>
+                                        <td>{{patient.patient_d.profile.fullName}}</td>
+                                        <td>{{patient.patient_d.patient_info.age}}</td>
+                                        <td>{{patient.patient_d.profile.gender}}</td>
+                                        <td>
+                                            {% if patient.appointment_time %}
+                                            {{patient.appointment_time}}
+                                            {% else %}
+                                                Give Time
+                                            {% endif %}
+                                            
+                                        </td>
+                                        <td>{{patient.patient_d.profile.user_phone}}</td>
+                                        <td class>
+                                            <a class="btn btn-sm btn-success" href="{% url 'doctor_app:symptoms_form' patient.id %}"><i class="fa-solid fa-capsules pe-2"></i>Pescribe</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                                
+                            </table>
+                            {% else %}
+                            <p class="h5"> Afternoon slot has  no patient's</p>
+                            {% endif %}
+                            
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="collapse collapse-horizontal" id="evening">
+                      <div>
+                        <div class="table-responsive">
+                            {% if evening_patient %}
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead class="text-dark bg-info">
+                                    <tr class="text-dark">
+                                        <th scope="col">Serial</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Sex</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Phone No</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                {% for patient in evening_patient %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{patient.serial_number}}</td>
+                                        <td>{{patient.patient_d.profile.fullName}}</td>
+                                        <td>{{patient.patient_d.patient_info.age}}</td>
+                                        <td>{{patient.patient_d.profile.gender}}</td>
+                                        <td>
+                                            {% if patient.appointment_time %}
+                                            {{patient.appointment_time}}
+                                            {% else %}
+                                                Give Time
+                                            {% endif %}
+                                            
+                                        </td>
+                                        <td>{{patient.patient_d.profile.user_phone}}</td>
+                                        <td class>
+                                            <a class="btn btn-sm btn-success" href="{% url 'doctor_app:symptoms_form' patient.id %}"><i class="fa-solid fa-capsules pe-2"></i>Pescribe</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                                
+                            </table>
+                            {% else %}
+                            <p class="h5">Evening slot has no patient</p>
+                            {% endif %}
+                            
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            
+        <div class="table-responsive">
+            {% if todays_patient %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="text-dark bg-info">
+                    <tr class="text-dark">
+                        <th scope="col">Serial</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Sex</th>
+                        <th scope="col">Time Slot</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for patient in todays_patient %}
+                <tbody>
+                    <tr>
+                        <td>{{patient.serial_number}}</td>
+                        <td>{{patient.patient_d.profile.fullName}}</td>
+                        <td>{{patient.patient_d.patient_info.age}}</td>
+                        <td>{{patient.patient_d.profile.gender}}</td>
+                        <td>{{patient.appointment_d.time_slot}}</td>
+                        <td>
+                            {% if patient.appointment_time %}
+                            {{patient.appointment_time}}
+                            {% else %}
+                                Give Time
+                            {% endif %}
+                            
+                        </td>
+                        <td class>
+                            <a class="btn btn-sm btn-success" href="{% url 'doctor_app:symptoms_form' patient.id %}"><i class="fa-solid fa-capsules pe-2"></i>Pescribe</a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+                
+            </table>
+            {% else %}
+            <p class="h5">No patient's Today</p>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+<!-- Recent Sales End -->
+
+
+{% endblock body_block %}

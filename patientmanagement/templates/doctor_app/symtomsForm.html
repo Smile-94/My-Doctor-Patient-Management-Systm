@@ -1,0 +1,37 @@
+{% extends 'doctor_app/base.html' %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h5 class="mb-0">Patient Symptoms</h5>
+        </div>
+        <div class="container-fluid">
+            <form  method="POST">{% csrf_token %}
+                <div class="mb-2">
+                    <label for="formGroupExampleInput" class="form-label d-flex align-items-start">Blood Pressure</label>
+                    {{symtomps_form.blood_pressure|add_class:"form-control"}}
+                  </div>
+                <div class="mb-2">
+                    <label for="formGroupExampleInput" class="form-label d-flex align-items-start">Next Metting</label>
+                    {{symtomps_form.next_metting_date|add_class:"form-control"}}
+                  </div>
+                <div class="mb-2">
+                    <label for="formGroupExampleInput" class="form-label d-flex align-items-start">Symtoms</label>
+                    {{symtomps_form.symptoms|add_class:"form-control"}}
+                  </div>
+                <div class="mb-2">
+                    <label for="formGroupExampleInput" class="form-label d-flex align-items-start">Suggestions</label>
+                    {{symtomps_form.suggestions|add_class:"form-control"}}
+                  </div>
+                <div class="mb-2 d-flex align-items-start">
+                    <input class="btn btn-primary" type="submit" value="Save">
+                  </div>
+
+              </form>
+          </div>
+    </div>
+</div>
+
+{% endblock body_block %}

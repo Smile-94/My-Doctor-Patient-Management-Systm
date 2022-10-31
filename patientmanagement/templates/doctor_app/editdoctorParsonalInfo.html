@@ -1,0 +1,46 @@
+{% extends 'doctor_app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <form method="POST" enctype='multipart/form-data'>{% csrf_token %}
+
+                  <div class="mb-3">
+                    {{form.title|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.doctor_type|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.specialist|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.road|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.sector|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.city|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.postcode|as_crispy_field}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.doctor_sort_description|as_crispy_field}}
+                  </div>
+                  
+                   <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                   </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock body_block %}

@@ -1,0 +1,551 @@
+{% extends 'admin_app/base.html' %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <img src="/media/{{doctor.user_photo}}" class="img-thumbnail " style="width: 150px; height: 175px;" alt="...">
+                <div class="ms-3">
+                    <p class="mb-2">Name: {{doctor.user.doctor.title}} {{doctor.fullName}} </p>
+                    <p class="mb-2">Specialist: {{doctor.user.doctor.specialist}}</p>
+                    <p class="mb-2">Phone: {{doctor.user_phone}} </p>
+                    <p class="mb-2">Email: {{doctor.user.email}} </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    
+</div>
+<!-- Sale & Revenue End -->
+
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-center">
+            <h5 class="mb-0">Doctor Report: From {{from_date}} To {{to_date}} </h5>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Appointment details</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="bg-info">
+                    <tr class="text-dark">
+                        <th scope="col">sl</th>
+                        <th scope="col">Object</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Morning</th>
+                        <th scope="col">Afternoon</th>
+                        <th scope="col">Evening</th>
+                        <th scope="col">Cancel</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Appointment </td>
+                        <td>{{total_appointment}}</td>
+                        <td>{{total_morning_appointment}} ({{morning_percentage|floatformat:2 }}%) </td>
+                        <td>{{total_afternoon_appointment}} ({{afternoon_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_evening_appointment}} ({{evening_percentage|floatformat:2 }}%) </td>
+                        <td>{{total_cancel_appointment}} ({{cancel_percentage|floatformat:2 }}%) </td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#appointment">Details </button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Offline Appointment </td>
+                        <td>{{total_offline_appointment}}  </td>
+                        <td>{{total_offline_morning_appointment}} ({{offline_appoin_morning_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_offline_afternoon_appointment}} ({{offline_appoin_afternoon_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_offline_evening_appointment}} ({{offline_appoin_evening_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_offline_afternoon_appointment}} ({{offline_appoin_cancel_percentage|floatformat:2 }}%)</td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offlineAppointment">Details </button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Online Appointment </td>
+                        <td>{{total_online_appointment}}</td>
+                        <td>{{total_online_morning_appointment}} ({{online_appoin_morning_percentage|floatformat:2 }}%) </td>
+                        <td>{{total_online_afternoon_appointment}} ({{online_appoin_afternoon_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_online_evening_appointment}} ({{online_appoin_evening_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_online_cancel_appointment}} ({{online_appoin_cancel_percentage|floatformat:2 }}%)</td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#onlineAppointment">Details </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--Appointment Model start-->
+  <!-- Modal -->
+  <div class="modal fade" id="appointment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Appointment List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Offline Appointment List</h6>
+            </div>
+            {% if offline_appointment %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark bg-info">
+                            <th scope="col">sl</th>
+                            <th scope="col">Appointment Date</th>
+                            <th scope="col">Time slot</th>
+                            <th scope="col">Room_number</th>
+                            <th scope="col">Patients</th>
+                        </tr>
+                    </thead>
+                    {% for appointment in offline_appointment %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{appointment.appointment_date}}</td>
+                            <td>{{appointment.time_slot}}</td>
+                            <td>{{appointment.room_number}}</td>
+                            <td>{{appointment.number_of_patient}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+                <p class="mb-2 d-flex align-item-center justify-content-center"> No offline Appointment </p>
+            {% endif %}
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Online Appointment List</h6>
+            </div>
+            {% if online_appointment %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark bg-info">
+                            <th scope="col">sl</th>
+                            <th scope="col">Appointment Date</th>
+                            <th scope="col">Time slot</th>
+                            <th scope="col">Patients</th>
+                        </tr>
+                    </thead>
+                    {% for appointment in online_appointment %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{appointment.online_appointment_date}}</td>
+                            <td>{{appointment.online_time_slot}}</td>
+                            <td>{{appointment.online_number_of_patient}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {% comment %} <button type="button" class="btn btn-primary">Understood</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Model End-->
+
+<!--offline Appointment Model start-->
+  <div class="modal fade" id="offlineAppointment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Appointment List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Offline Appointment List</h6>
+            </div>
+            {% if offline_appointment %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark bg-info">
+                            <th scope="col">sl</th>
+                            <th scope="col">Appointment Date</th>
+                            <th scope="col">Time slot</th>
+                            <th scope="col">Room_number</th>
+                            <th scope="col">Patients</th>
+                        </tr>
+                    </thead>
+                    {% for appointment in offline_appointment %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{appointment.appointment_date}}</td>
+                            <td>{{appointment.time_slot}}</td>
+                            <td>{{appointment.room_number}}</td>
+                            <td>{{appointment.number_of_patient}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+                <p class="mb-2 d-flex align-item-center justify-content-center"> No offline Appointment </p>
+            {% endif %}
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {% comment %} <button type="button" class="btn btn-primary">Understood</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Model End-->
+<!--online Appointment Model start-->
+  <div class="modal fade" id="onlineAppointment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Appointment List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Online Appointment List</h6>
+            </div>
+            {% if online_appointment %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark bg-info">
+                            <th scope="col">sl</th>
+                            <th scope="col">Appointment Date</th>
+                            <th scope="col">Time slot</th>
+                            <th scope="col">Patients</th>
+                        </tr>
+                    </thead>
+                    {% for appointment in online_appointment %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{appointment.online_appointment_date}}</td>
+                            <td>{{appointment.online_time_slot}}</td>
+                            <td>{{appointment.online_number_of_patient}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {% comment %} <button type="button" class="btn btn-primary">Understood</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Model End-->
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Prescription Details</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="bg-info">
+                    <tr class="text-dark">
+                        <th scope="col">sl</th>
+                        <th scope="col">Object</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Morning</th>
+                        <th scope="col">Afternoon</th>
+                        <th scope="col">Evening</th>
+                        <th scope="col">Not Prescribed</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Offline Patient </td>
+                        <td>{{total_offline_prescription}} </td>
+                        <td>{{total_offline_morning_prescription}} ({{offline_percentage_morning_prescription|floatformat:2 }}%)</td>
+                        <td>{{total_offline_afternoon_prescription}} ({{offline_percentage_afternoon_prescription|floatformat:2 }}%)</td>
+                        <td>{{total_offline_evening_prescription}} ({{offline_percentage_evening_prescription|floatformat:2 }}%)</td>
+                        <td>{{total_offline_not_prescribed}} ({{offline_percentage_not_prescription|floatformat:2 }}%)</td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offlinePrescription">Details </button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Online Patient</td>
+                        <td>{{total_online_prescription}}</td>
+                        <td>{{total_online_morning_prescription}} ({{online_percentage_morning_prescription|floatformat:2 }}%) </td>
+                        <td>{{total_online_afternoon_prescription}} ({{online_percentage_afternoon_prescription|floatformat:2 }}%)</td>
+                        <td>{{total_online_evening_prescription}} ({{online_percentage_evening_prescription|floatformat:2 }}%)</td>
+                        <td>{{total_online_not_prescribed}} ({{online_percentage_not_prescription|floatformat:2 }}%)</td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#onlinePrescription">Details </button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Offline Not Prescribed Patient</td>
+                        <td>{{total_offline_not_prescribed}}</td>
+                        <td>{{offline_morning_not_prescribed}} ({{offline_morning_not_pres_percentage|floatformat:2 }}%) </td>
+                        <td>{{offline_afternoon_not_prescribed}} ({{offline_afternoon_not_pres_percentage|floatformat:2 }}%)</td>
+                        <td>{{offline_evening_not_prescribed}} ({{offline_evening_not_pres_percentage|floatformat:2 }}%)</td>
+                        <td></td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offlineNotPrescription">Details </button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Online Not Prescribed Patient</td>
+                        <td>{{total_online_not_prescribed}}</td>
+                        <td>{{online_morning_not_prescribed}} ({{online_morning_not_pres_percentage|floatformat:2 }}%) </td>
+                        <td>{{online_afternoon_not_prescribed}} ({{online_afternoon_not_pres_percentage|floatformat:2 }}%)</td>
+                        <td>{{online_evening_not_prescribed}} ({{online_evening_not_pres_percentage|floatformat:2 }}%)</td>
+                        <td></td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#onlineNotPrescription">Details </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-center">
+            <a class="btn btn-primary btn-lg" href="{% url 'admin_app:doctor_report_details' pk %}" role="button">Back</a>
+        </div>
+    </div>
+</div>
+
+<!--offline Prescription Model-->
+  <!-- Modal -->
+  <div class="modal fade" id="offlinePrescription" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Offline Prescription List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Offline Prescription List</h6>
+            </div>
+            {% if offline_doctor_prescription %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark bg-info">
+                            <th scope="col">sl</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time slot</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Serial Number</th>
+                        </tr>
+                    </thead>
+                    {% for patient in offline_doctor_prescription %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{patient.patient_d.profile.fullName}}</td>
+                            <td>{{patient.appointment_d.appointment_date}}</td>
+                            <td>{{patient.appointment_d.time_slot}}</td>
+                            <td>{{patient.appointment_time}}</td>
+                            <td>{{patient.serial_number}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+                <p class="mb-2 d-flex align-item-center justify-content-center"> No Prescribed offline Patient </p>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {% comment %} <button type="button" class="btn btn-primary">Understood</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Model End-->
+
+<!--offline not Prescription Model-->
+
+  <div class="modal fade" id="offlineNotPrescription" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Offline Prescription List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Offline Prescription List</h6>
+            </div>
+            {% if offline_doctor_prescription %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark bg-info">
+                            <th scope="col">sl</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time slot</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Serial Number</th>
+                        </tr>
+                    </thead>
+                    {% for patient in offline_doctor_prescription %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{patient.patient_d.profile.fullName}}</td>
+                            <td>{{patient.appointment_d.appointment_date}}</td>
+                            <td>{{patient.appointment_d.time_slot}}</td>
+                            <td>{{patient.appointment_time}}</td>
+                            <td>{{patient.serial_number}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+                <p class="mb-2 d-flex align-item-center justify-content-center"> No Prescribed offline Patient </p>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {% comment %} <button type="button" class="btn btn-primary">Understood</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Model End-->
+
+<!--online Prescription Model-->
+
+  <div class="modal fade" id="onlinePrescription" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Offline Prescription List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Online Prescribed Patient List</h6>
+            </div>
+            {% if offline_doctor_not_prescribed %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark bg-info">
+                            <th scope="col">sl</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time slot</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Serial Number</th>
+                        </tr>
+                    </thead>
+                    {% for patient in offline_doctor_not_prescribed %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{patient.online_patient_d.profile.fullName}}</td>
+                            <td>{{patient.online_appointment_d.online_appointment_date}}</td>
+                            <td>{{patient.online_appointment_d.online_time_slot}}</td>
+                            <td>{{patient.online_appointment_time}}</td>
+                            <td>{{patient.online_serial_number}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+                <p class="mb-2 d-flex align-item-center justify-content-center"> No Prescribed offline Patient </p>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {% comment %} <button type="button" class="btn btn-primary">Understood</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Model End-->
+
+<!--online not Prescription Model-->
+
+  <div class="modal fade" id="onlineNotPrescription" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Offline Prescription List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Online Prescribed Patient List</h6>
+            </div>
+            {% if online_doctor_not_prescribed %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark bg-info">
+                            <th scope="col">sl</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time slot</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Serial Number</th>
+                        </tr>
+                    </thead>
+                    {% for patient in online_doctor_not_prescribed %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{patient.online_patient_d.profile.fullName}}</td>
+                            <td>{{patient.online_appointment_d.online_appointment_date}}</td>
+                            <td>{{patient.online_appointment_d.online_time_slot}}</td>
+                            <td>{{patient.online_appointment_time}}</td>
+                            <td>{{patient.online_serial_number}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+                <p class="mb-2 d-flex align-item-center justify-content-center"> No Prescribed offline Patient </p>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {% comment %} <button type="button" class="btn btn-primary">Understood</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Model End-->
+
+
+{% endblock body_block %}

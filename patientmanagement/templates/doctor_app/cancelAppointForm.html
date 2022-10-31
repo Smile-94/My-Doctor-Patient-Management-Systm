@@ -1,0 +1,25 @@
+{% extends 'doctor_app/base.html' %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <p class="h4">Cancel Appointment</p>
+                <form method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Why you want to cancel?</label>
+                    {{form.cancel_message | add_class:"form-control"}}
+                  </div>
+                  <div class="mt-4">
+                    <button type="submit" class="btn btn-danger" onClick="alert('Are you sure, want to cancel?')"><i class="fa-solid fa-rectangle-xmark me-2"></i>Cancel</button>
+                   </div>
+                  
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock body_block %}

@@ -1,0 +1,72 @@
+{% extends 'login_app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block body_block %}
+
+<!-- Sing in  Form -->
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="col-sm-12 col-xl-12">
+                <div class="bg-light rounded h-100 p-4">
+                    <div class="mb-3">
+                        <h2 class="form-title">Patient Info</h2>
+                        <form method="POST" class="register-form" id="login-form" enctype='multipart/form-data'>{% csrf_token %}
+                            <div class="form-group">
+                                <p>Full Name</P> 
+                                {{form.fullName | add_class:"form-control"}}
+                            </div>
+                            <div class="form-group">
+                                <p>Gender</P>
+                                {{form.gender | add_class:"form-control"}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Patient Age</P>
+                                {{patient_form.age |add_class:"form-control"}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Marital status</P>
+                                {{patient_form.marital_status |add_class:"form-control"}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Village/Road</P>
+                                {{patient_form.village| add_class:"form-control"}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Postoffice/Sector/Block</P>
+                                {{patient_form.post_office | add_class:"form-control"}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Police Station/Thana</P>
+                                {{patient_form.police_station | add_class:"form-control"}}    
+                            </div>
+                            <div class="form-group">
+                                <p>District</P>
+                                {{patient_form.district | add_class:"form-control"}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Postcode</P>
+                                {{patient_form.post_code | add_class:"form-control"}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Phone Number</p>
+                                {{form.user_phone | add_class:"form-control"}}
+                            </div>
+                            <div class="form-group">
+                                <p>Profile Photo</p>
+                                {{form.user_photo| add_class:"form-control"}}
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Save"/>
+                            </div>
+                        </form>
+
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+{% endblock body_block %}

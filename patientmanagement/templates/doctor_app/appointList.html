@@ -1,0 +1,52 @@
+{% extends 'doctor_app/base.html' %}
+
+{% block body_block %}
+<!-- Appointment List Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Appointment List</h6>
+        </div>
+       
+        {% if appointment_list %}
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">Sl</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time Slot</th>
+                        <th scope="col">Room No</th>
+                        <th scope="col">Patients</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                {% for appoint in appointment_list %}
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{appoint.appointment_date}}</td>
+                        <td>{{appoint.time_slot}}</td>
+                        <td>{{appoint.room_number}}</td>
+                        <td>{{appoint.number_of_patient}}</td>
+                        <td>{{appoint.active_status}}</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" href="{% url 'doctor_app:edit_appointment' appoint.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="btn btn-sm btn-danger" href="{% url 'doctor_app:cancel_appointment' appoint.id %}"><i class="fa-solid fa-rectangle-xmark"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %} 
+            </table>
+        </div>
+        {% endif %}
+     
+    </div>
+</div>
+<!-- Appointment List end -->
+
+
+
+
+{% endblock body_block %}

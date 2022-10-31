@@ -1,0 +1,149 @@
+{% extends 'admin_app/base.html' %}
+
+{% block body_block %}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <img src="/media/{{doctor.profile.user_photo}}" class="img-thumbnail " style="width: 150px; height: 175px;" alt="...">
+                <div class="ms-3">
+                    <p class="mb-2">Name: {{doctor.doctor.title}} {{doctor.profile.fullName}} </p>
+                    <p class="mb-2">Specialist: {{doctor.doctor.specialist}}</p>
+                    <p class="mb-2">Phone: {{doctor.profile.user_phone}} </p>
+                    <p class="mb-2">Email: {{doctor.email}} </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <div class="ms-3">
+                    <form action="{% url 'admin_app:serarch_form_to' doctor.id %}"  method="POST"> {% csrf_token %}
+                        <div class="row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="form-label">From</label>
+                              <input type="date" class="form-control" name="fromDate" placeholder="First name" aria-label="formDate" value="{{fromDate}} ">
+                            </div>
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="form-label">To</label>
+                              <input type="date" class="form-control" name="toDate" placeholder="Last name" aria-label="toDate" value="{{toDate}} ">
+                            </div>
+                          </div>
+                          <div class="col d-flex align-item-center justify-content-center mt-4">
+                            <input class="btn btn-primary" type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    
+</div>
+<!-- Sale & Revenue End -->
+
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Appointment details</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="bg-info">
+                    <tr class="text-dark">
+                        <th scope="col">sl</th>
+                        <th scope="col">Object</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Morning</th>
+                        <th scope="col">Afternoon</th>
+                        <th scope="col">Evening</th>
+                        <th scope="col">Cancel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Appointment </td>
+                        <td>{{total_appointment}}</td>
+                        <td>{{total_morning_appointment}} ({{morning_percentage|floatformat:2 }}%) </td>
+                        <td>{{total_afternoon_appointment}} ({{afternoon_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_evening_appointment}} ({{evening_percentage|floatformat:2 }}%) </td>
+                        <td>{{total_appointment_cancel}} ({{cancel_percentage|floatformat:2 }}%) </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Offline Appointment </td>
+                        <td>{{total_offline_appointment}}  </td>
+                        <td>{{total_offline_morning_appointment}} ({{offline_morning_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_offline_afternoon_appointmnet}} ({{offline_afternoon_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_offline_evening_appointmnet}} ({{offline_evening_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_cancel_offline_appointment}} ({{offline_cancel_percentage|floatformat:2 }}%)</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Online Appointment </td>
+                        <td>{{total_online_appointment}}</td>
+                        <td>{{total_online_morning_appointment}} ({{online_morning_percentage|floatformat:2 }}%) </td>
+                        <td>{{total_online_afternoon_appointment}} ({{online_afternoon_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_online_evening_appointment}} ({{online_evening_percentage|floatformat:2 }}%)</td>
+                        <td>{{total_cancel_online_appointment}} ({{online_cancel_percentage|floatformat:2 }}%)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Prescription Details</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead class="bg-info">
+                    <tr class="text-dark">
+                        <th scope="col">sl</th>
+                        <th scope="col">Object</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Morning</th>
+                        <th scope="col">Afternoon</th>
+                        <th scope="col">Evening</th>
+                        <th scope="col">Not Prescribed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Offline Doctor Appointment </td>
+                        <td>{{total_offline_prescription}} </td>
+                        <td>{{total_offline_morning_prescription}} ({{offline_morning_pres_percen|floatformat:2 }}%)</td>
+                        <td>{{total_offline_afternoon_prescription}} ({{offline_afternoon_pres_percen|floatformat:2 }}%)</td>
+                        <td>{{total_offline_evening_prescription}} ({{offline_evening_pres_percen|floatformat:2 }}%)</td>
+                        <td>{{total_offline_notPrescribed}} ({{offline_not_pres_percen|floatformat:2 }}%)</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Online Doctor Appointment </td>
+                        <td>{{total_online_prescription}}</td>
+                        <td>{{total_online_morning_prescription}} ({{online_morning_pres_percent|floatformat:2 }}%) </td>
+                        <td>{{total_online_afternoon_prescription}} ({{online_afternoon_pres_percent|floatformat:2 }}%)</td>
+                        <td>{{total_online_evening_prescription}} ({{online_evening_pres_percent|floatformat:2 }}%)</td>
+                        <td>{{total_online_notprescribed}} ({{online_not_pres_percent|floatformat:2 }}%)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-center">
+            <a class="btn btn-primary btn-lg" href="{% url 'admin_app:doctor_reprot' %}" role="button">Back</a>
+        </div>
+    </div>
+</div>
+
+{% endblock body_block %}

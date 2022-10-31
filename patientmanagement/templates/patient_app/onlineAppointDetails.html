@@ -1,0 +1,84 @@
+{% extends 'patient_app/base.html' %}
+{% load static %}
+
+{% block body_block %}
+ <!-- Patient name,id,age, blood pressuer start -->
+ <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Date</p>
+                    <h6 class="mb-2">{{details.online_appointment_d.online_appointment_date}}</h6>
+                    <h6 class="mb-2">{{details.online_appointment_d.online_time_slot}},
+                        {% if details.online_appointment_time %}
+                        {{details.online_appointment_time}}
+                        {% else %}
+                        Time will given soon
+                        {% endif %}
+                       </h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
+                <i class="fa-solid fa-house-medical fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Zoom Link</p>
+                    {% if payment %}
+                    <a class="btn btn-primary" href="{{details.online_appointment_d.zoom_link}}" role="button" target="_blank">Join Meeting</a>
+                    {% else %}
+                    <a class="btn btn-primary" href="{% url 'patient_app:confirm_payment' details.id  %}" role="button">Payment</a>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- Patient name,id,age, blood pressuer start end -->
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-8 col-xl-12">
+        <div class="bg-light rounded d-flex justify-content-Start p-4 mb-4">
+            <img src="/media/{{details.online_doctor_d.profile.user_photo}}" class="img-thumbnail " style="width: 250px; height: 250px;" alt="...">
+            <div class="ms-3">
+                <p class="h5">Doctor Details:</p>
+                <h6 class="mb-2">{{details.online_doctor_d.doctor.title}} {{details.online_doctor_d.profile.fullName}}</h6>
+                <p class="mb-2">{{details.online_doctor_d.doctor.doctor_sort_description}}</p>
+                <p class="mb-2">{{details.online_doctor_d.doctor.specialist}}</p>
+                <h4 class="mb-2 text-danger mt-4"> 
+                    {% if details.online_appointment_d.online_cancel_status %}
+                        {{details.online_appointment_d.online_cancel_message}}
+                    {% endif %}
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+{% if payment %}
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-8 col-xl-12">
+        <div class="bg-light rounded d-flex justify-content-Start p-4 mb-4">
+            <img src="{% static 'patient_app/img/card.jpg' %}" class="img-thumbnail " style="width: 250px; height: 250px;" alt="...">
+            <div class="ms-3">
+                <p class="h5">Payment Details</p>
+                <p class="mb-2">Transaction ID: {{payment.tran_id}} </p>
+                <p class="mb-2">Validation ID: {{payment.valid_id}} </p>
+                <p class="mb-2">Payment Date: {{payment.payment_date}}</p>
+                <h4 class="mb-2 text-danger mt-4"> 
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+<div class="d-flex justify-content-center align-item-center">
+    <a class="btn btn-primary btn-lg" href="{% url 'patient_app:appointment_history' %}" role="button"><i class="fa-solid fa-circle-left me-3"></i>Back</a>
+  </div>
+
+{% endblock body_block %}

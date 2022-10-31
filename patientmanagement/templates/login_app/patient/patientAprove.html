@@ -1,0 +1,26 @@
+{% extends 'login_app/base.html' %}
+{% load static %}
+
+{% block body_block %}
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="{% static 'login_app/login/images/signin-image.jpg' %}" alt="sing up image"></figure>
+               
+            </div>
+
+            <div class="signin-form">
+                
+                <h3>Wait For Approval</h3>
+                <blockquote class="blockquote">
+                    <p>Admistative Team will let you soon</p>
+                  </blockquote>
+
+                 
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock body_block %}

@@ -1,0 +1,41 @@
+{% extends 'doctor_app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <p class="h4">Create Appointment</p>
+                <form method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Active Status</label>
+                   {{form.online_active_status|add_class:"form-control"}}
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Appointment Date</label>
+                   {{form.online_appointment_date|add_class:"form-control"}}
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Time Slot</label>
+                   {{form.online_time_slot|add_class:"form-control"}}
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Number of Patient</label>
+                   {{form.online_number_of_patient|add_class:"form-control"}}
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Zoom Link</label>
+                   {{form.zoom_link|add_class:"form-control"}}
+                  </div>
+                  <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                   </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock body_block %}

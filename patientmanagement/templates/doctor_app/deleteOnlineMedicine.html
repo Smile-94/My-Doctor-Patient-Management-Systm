@@ -1,0 +1,49 @@
+{% extends 'doctor_app/base.html' %}
+
+
+{% block body_block %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="mb-0">Prescribe Medicine</h6>
+        </div>
+        <div class="container-fluid">
+            {% if medicine %}
+            <form  method="POST">{% csrf_token %}
+                <div class="row bg-info text-dark py-2 mb-4">
+                    <div class="col-4"><strong>Medicine Name(Mg)</strong></div>
+                    <div class="col-1"><strong>Morning</strong></div>
+                    <div class="col-1"><strong>Lunch</strong></div>
+                    <div class="col-1"><strong>Dinner</strong></div>
+                    <div class="col"><strong>Comments</strong></div>
+                    <div class="col-2"><strong>Action</strong></div>
+                  </div>
+                <div class="row">
+                    <div class="col-4">{{medicine.online_medicine_name }} </div>
+                    <div class="col-1">{{medicine.online_morning_time }} </div>
+                    <div class="col-1">{{medicine.online_lunch_time }}</div>
+                    <div class="col-1">{{medicine.online_dinner_time }}</div>
+                    <div class="col-3">{{medicine.online_comments }}</div>
+                    <div class="col"><input class="btn btn-danger px-4" type="submit" value="Delete" onClick="alert('Are you sure, want to delete?')"></div>
+                  </div>
+              </form>
+            {% endif %}
+            
+              {% if report_object %}
+              <form  method="POST">{% csrf_token %}
+                <div class="row bg-info text-dark py-2 mb-4">
+                    <div class="col-4"><strong>Report Name</strong></div>
+                    <div class="col-6"><strong>Description</strong></div>
+                    <div class="col"><strong>Action</strong></div>
+                  </div>
+                <div class="row">
+                    <div class="col-4">{{report_object.online_report_name }} </div>
+                    <div class="col-6">{{report_object.online_report_details}} </div>
+                    <div class="col"><input class="btn btn-danger px-4" type="submit" value="delete" onClick="alert('Are you sure, want to delete?')"></div>
+                  </div>
+              </form>
+              {% endif %}
+          </div>
+    </div>
+</div>
+{% endblock body_block %}

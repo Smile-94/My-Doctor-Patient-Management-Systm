@@ -1,0 +1,76 @@
+{% extends 'login_app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block body_block %}
+
+<!-- Sing in  Form -->
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="col-sm-12 col-xl-12">
+                <div class="bg-light rounded h-100 p-4">
+                    <div class="mb-2">
+                        <h2 class="form-title">Doctor Info</h2>
+                        <form method="POST" class="register-form" id="login-form" enctype='multipart/form-data'>{% csrf_token %}
+                            <div class="form-group">
+                                <p>Doctor Title</P> 
+                                {{doctor_form.title}}
+                            </div>
+                            <div class="form-group">
+                                <p>Full Name</P> 
+                                {{form.fullName}}
+                            </div>
+                            <div class="form-group">
+                                <p>Gender</P>
+                                {{form.gender}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Date Of Birth</P>
+                                {{doctor_form.date_of_birth}}    
+                            </div>
+                            <div class="form-group">
+                                <p>National ID Number</P>
+                                {{doctor_form.national_ID_number}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Passport Number</P>
+                                {{doctor_form.passport_number}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Registration Number (BMDC)</P>
+                                {{doctor_form.registration_number_BMDC}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Doctor Type</P>
+                                {{doctor_form.doctor_type}}    
+                            </div>
+                            <div class="form-group">
+                                <p>Specialist</P>
+                                {{doctor_form.specialist}}    
+                            </div>  
+                            <div class="form-group">
+                                <p>Phone Number</p>
+                                {{form.user_phone}}
+                            </div>
+                            <div class="form-group">
+                                <p>Profile Photo</p>
+                                {{form.user_photo}}
+                            </div>
+                            <div class="form-group">
+                                <p>Short Description</P>
+                                {{doctor_form.doctor_sort_description}}    
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Save"/>
+                            </div>
+                        </form>
+
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+{% endblock body_block %}

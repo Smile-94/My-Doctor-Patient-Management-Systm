@@ -1,0 +1,22 @@
+{% extends 'admin_app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+  <!-- Sale & Revenue Start -->
+  <div class="container-fluid pt-4 px-4 ">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center p-4">
+                <div class="ms-3">
+                    <form method="POST" >{% csrf_token %}
+                            {{form|crispy}}
+                         <div class="mt-4">
+                          <button type="submit" class="btn btn-primary">Add Doctor</button>
+                         </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body_block %}
